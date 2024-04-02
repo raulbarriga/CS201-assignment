@@ -16,7 +16,7 @@ I instantiate the 2-D array from its separate file in:
 
 `String[][] stateAndCapital = StatesAndCapitals.STATE_AND_CAPITAL;`
 
-The `displayStateAndCapital`method uses an enhanced for loop to print the 2-D array. I pass it the `stateAndCapital` 2-D array.
+The `displayStateAndCapital`method uses an enhanced for loop to print the 2-D array.
 
 The `bubbleSortByCapital` method uses a bubble sort to sort the array's content by capital.
 
@@ -55,4 +55,58 @@ int correctCount = quizUser(stateAndCapital);
 System.out.println("\nTotal correct count: " + correctCount);
 ```
 ## Part 2: Sorting & Searching HashMap
+`Map<String, String> stateCapitalMap = new HashMap<>();` creates a HashMap to store state-capital pairs
 
+I pass the `stateAndCapital` 2-D array: `String[][] stateAndCapital = StatesAndCapitals.STATE_AND_CAPITAL;`
+
+I loop to convert the 2-D array into a HashMap:
+```
+for (String[] strings : stateAndCapital) {
+    stateCapitalMap.put(strings[0], strings[1]);
+}
+```
+I display the content of the Map:
+```
+System.out.println("Capital and State of HashMap:\n");
+displayMap(stateCapitalMap);
+```
+The `displayMap` method uses an enhanced for loop to loop through the Map: 
+```
+public static void displayMap(Map<String, String> map) {
+    for (Map.Entry<String, String> entry : map.entrySet()) {
+        System.out.println(entry.getKey() + " - " + entry.getValue());
+    }
+}
+```
+In the main method, I continue with:
+
+``
+Map<String, String> sortedMap = new TreeMap<>(stateCapitalMap);
+``
+
+You can utilize the TreeMap class provided by Java, which internally implements a binary search tree. No need to implement your own binary search tree. I sort the map using TreeMap (sorted by keys in natural order) while using a binary search tree (built in to TreeMap) for storage.
+
+The `promptUser(sortedMap);` method receives the `TreeMap` I just created.
+
+### How The `promptUser`Method Works
+It takes a `Map<String, String>` called `stateAndCapitalMap` as input.
+
+It creates a `Scanner` object called `scanner` to read user input. The input can either be capitalized or not (the map of states and capitals are all capitalized).
+
+It prompts the user to enter a state to display its capital and informs the user that they can type "exit" to quit.
+
+Inside the `while` loop, it continues until the user types "exit":
+
+It reads the user input and trims any leading or trailing whitespace using `.trim()`.
+It capitalizes the first letter of the user input and converts the rest of the string to lowercase.
+```
+state = state.substring(0, 1).toUpperCase() + state.substring(1).toLowerCase();
+```
+It retrieves the capital of the state from the stateAndCapitalMap using the capitalized state name.
+```
+String capital = stateAndCapitalMap.get(state);
+```
+If the capital is found in the map, it prints the capital corresponding to the entered state.
+If the capital is not found, it prints "State not found."
+It prompts the user again to enter a state or type "exit" to quit.
+When the user types "exit" to quit the program, it prints "Exiting the program..." and exits the method.

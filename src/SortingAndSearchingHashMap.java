@@ -6,13 +6,11 @@ import java.util.TreeMap;
 public class SortingAndSearchingHashMap {
     public static void main(String[] args) {
         // Create a HashMap to store state-capital pairs
-        // No need to implement your own binary search tree.
-        // // You can utilize the TreeMap class provided by Java, which internally implements a binary search tree
         Map<String, String> stateCapitalMap = new HashMap<>();
         // two-dimensional string array with states and their capitals in alphabetical order by state
         String[][] stateAndCapital = StatesAndCapitals.STATE_AND_CAPITAL;
 
-        // Loop to convert the 2D array into a HashMap
+        // Loop to convert the 2-D array into a HashMap
         for (String[] strings : stateAndCapital) {
             stateCapitalMap.put(strings[0], strings[1]);
         }
@@ -21,6 +19,8 @@ public class SortingAndSearchingHashMap {
         System.out.println("Capital and State of HashMap:\n");
         displayMap(stateCapitalMap);
 
+        // You can utilize the TreeMap class provided by Java, which internally implements a binary search tree
+        // No need to implement your own binary search tree.
         // Sort the map using TreeMap (sorted by keys in natural order) while using a binary search tree (built in to TreeMap) for storage
         Map<String, String> sortedMap = new TreeMap<>(stateCapitalMap);
 

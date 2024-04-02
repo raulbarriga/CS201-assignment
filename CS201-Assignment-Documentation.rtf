@@ -1,0 +1,722 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;\f1\fmodern\fcharset0 Courier;\f2\fmodern\fcharset0 Courier-Oblique;
+\f3\fmodern\fcharset0 Courier-Bold;\f4\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red255\green255\blue255;\red130\green147\blue243;\red189\green189\blue199;
+\red84\green84\blue96;\red215\green130\blue104;\red82\green149\blue79;\red189\green189\blue199;\red186\green150\blue74;
+\red65\green155\blue237;}
+{\*\expandedcolortbl;;\cssrgb\c100000\c100000\c100000\c0;\cssrgb\c57928\c65489\c96233;\cssrgb\c78884\c78993\c82116;
+\cssrgb\c40451\c40616\c45244;\cssrgb\c87889\c58578\c48067;\cssrgb\c38545\c63941\c38142;\cssrgb\c78884\c78993\c82116;\cssrgb\c77933\c64818\c36219;
+\cssrgb\c30712\c67737\c94403;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \cb2 // documentation markdown starts here\
+\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+
+\f1\fs26 \cf3 # Overview\
+\cf4 Assignment files are located under the \cf5 `src` \cf4 folder:\
+\cf5 ```\
+/src\
+SortingAndSearchingHashMap.java\
+SortingArrays.java\
+StatesAndCapitals.java\
+```\
+\cf6 - \cf5 `SortingArrays.java` \cf4 contains the "Part 1: Sorting Arrays" of the assignment.\
+\cf6 - \cf5 `SortingAndSearchingHashMap.java` \cf4 contains the "Part 2: Sorting & Searching HashMap" of the assignment.\
+\cf6 - \cf5 `StatesAndCapitals.java` \cf4 is a 2-D array for all the states and their respective capital.\
+\
+\
+\cf3 ## Part 1: Sorting Arrays\
+\cf4 I instantiate the 2-D array from its separate file in:\
+\
+\cf5 `String[][] stateAndCapital = StatesAndCapitals.STATE_AND_CAPITAL;`\
+\
+\cf4 The \cf5 `displayStateAndCapital` \cf4 method uses an enhanced for loop to print the 2-D array.\
+\
+The \cf5 `bubbleSortByCapital` \cf4 method uses a bubble sort to sort the array's content by capital.\
+\
+\cf3 ### How The `bubbleSortByCapital` Method Works\
+\cf4 I pass it the \cf5 `stateAndCapital` \cf4 2-D array. Inside this method, I use a double for-loop to loop through the 2-D array.\
+\
+Inside the inner loop, it compares the capitals of adjacent state-capital pairs. It extracts the capitals of the current pair \cf5 `array[j][1]` \cf4 and the next pair \cf5 `array[j + 1][1]` \cf4 and stores them in `curr` and `next` variables, respectively. If the capital of the current pair comes after the capital of the next pair alphabetically (ignoring case), it means they are in the wrong order.\
+\
+If the capitals are in the wrong order, it swaps the entire state-capital pairs: It creates a temporary array \cf5 `temp` \cf4 to hold the current state-capital pair. It assigns the next state-capital pair to the current position \cf5 `array[j]`\cf4 .  It assigns the temporary array \cf5 `temp` \cf4 to the next position \cf5 `array[j + 1]`\cf4 . The inner loop continues until all pairs are compared and sorted.\
+\
+After the inner loop completes, the outer loop increments \cf5 `i`\cf4 , and the process repeats until the array is completely sorted.\
+\
+\cf3 ### How The `quizUser` Method Works\
+\cf4 It takes a 2-D array \cf5 `stateAndCapital` \cf4 as input.\
+\
+It initializes a \cf5 `Scanner` \cf4 object \cf5 `input` \cf4 to read user input, and a variable \cf5 `correctCount` \cf4 to keep track of the number of correct answers.\
+\
+It loops through each row in the \cf5 `stateAndCapital` \cf4 array using an enhanced for loop.\
+\
+Inside the loop, it prompts the user with the question "What is the capital of <state>?" and waits for the user's input. The <state> placeholder is replaced with the state name from the current row.\
+\
+If the user enters "exit", the program exits, printing a message and returning the \cf5 `correctCount`\cf4 .\
+\
+If the user's input matches the capital stored in the current row (ignoring case), it prints "Your answer is correct!" and increments the \cf5 `correctCount`\cf4 .\
+\
+If the user's input does not match the capital, it prints "Wrong - The correct answer is <capital>", where <capital> is replaced with the correct capital from the current row.\
+\
+The loop continues until all state-capital pairs have been quizzed.\
+\
+Finally, it returns the \cf5 `correctCount`\cf4 , which represents the number of correct answers given by the user.\
+\
+\
+In the \cf5 `main` \cf4 method, the program will print the correct count in the end:\
+\cf5 ```\
+int correctCount = quizUser(stateAndCapital);\
+System.out.println("\\nTotal correct count: " + correctCount);\
+```\
+\cf3 ## Part 2: Sorting & Searching HashMap\
+\cf5 `Map<String, String> stateCapitalMap = new HashMap<>();` \cf4 creates a HashMap to store state-capital pairs\
+\
+I pass the \cf5 `stateAndCapital` \cf4 2-D array: \cf5 `String[][] stateAndCapital = StatesAndCapitals.STATE_AND_CAPITAL;`\
+\
+\cf4 I loop to convert the 2-D array into a HashMap:\
+\cf5 ```\
+for (String[] strings : stateAndCapital) \{\
+    stateCapitalMap.put(strings[0], strings[1]);\
+\}\
+```\
+\cf4 I display the content of the Map:\
+\cf5 ```\
+System.out.println("Capital and State of HashMap:\\n");\
+displayMap(stateCapitalMap);\
+```\
+\cf4 The \cf5 `displayMap` \cf4 method uses an enhanced for loop to loop through the Map: \
+\cf5 ```\
+public static void displayMap(Map<String, String> map) \{\
+    for (Map.Entry<String, String> entry : map.entrySet()) \{\
+        System.out.println(entry.getKey() + " - " + entry.getValue());\
+    \}\
+\}\
+```\
+\cf4 In the main method, I continue with:\
+\
+\cf5 ``\
+Map<String, String> sortedMap = new TreeMap<>(stateCapitalMap);\
+``\
+\
+\cf4 You can utilize the TreeMap class provided by Java, which internally implements a binary search tree. No need to implement your own binary search tree. I sort the map using TreeMap (sorted by keys in natural order) while using a binary search tree (built in to TreeMap) for storage.\
+\
+The \cf5 `promptUser(sortedMap);` \cf4 method receives the \cf5 `TreeMap` \cf4 I just created.\
+\
+\cf3 ### How The `promptUser` Method Works\
+\cf4 It takes a \cf5 `Map<String, String>` \cf4 called \cf5 `stateAndCapitalMap` \cf4 as input.\
+\
+It creates a \cf5 `Scanner` \cf4 object called \cf5 `scanner` \cf4 to read user input. The input can either be capitalized or not (the map of states and capitals are all capitalized).\
+\
+It prompts the user to enter a state to display its capital and informs the user that they can type "exit" to quit.\
+\
+Inside the \cf5 `while` \cf4 loop, it continues until the user types "exit":\
+\
+It reads the user input and trims any leading or trailing whitespace using \cf5 `.trim()`\cf4 .\
+It capitalizes the first letter of the user input and converts the rest of the string to lowercase.\
+\cf5 ```\
+state = state.substring(0, 1).toUpperCase() + state.substring(1).toLowerCase();\
+```\
+\cf4 It retrieves the capital of the state from the stateAndCapitalMap using the capitalized state name.\
+\cf5 ```\
+String capital = stateAndCapitalMap.get(state);\
+```\
+\cf4 If the capital is found in the map, it prints the capital corresponding to the entered state.\
+If the capital is not found, it prints "State not found."\
+It prompts the user again to enter a state or type "exit" to quit.\
+When the user types "exit" to quit the program, it prints "Exiting the program..." and exits the method.\
+\cf4 \
+// documentation markdown ends here\
+\
+// StatesAndCapitals.java file starts here\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf6 public class \cf4 StatesAndCapitals \{\
+    \cf6 public static final \cf4 String[][] 
+\f2\i \cf3 STATE_AND_CAPITAL 
+\f1\i0 \cf4 = \{\
+            \{\cf7 "Alabama"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Montgomery"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Alaska"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Juneau"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Arizona"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Phoenix"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Arkansas"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Little Rock"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "California"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Sacramento"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Colorado"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Denver"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Connecticut"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Hartford"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Delaware"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Dover"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Florida"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Tallahassee"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Georgia"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Atlanta"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Hawaii"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Honolulu"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Idaho"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Boise"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Illinois"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Springfield"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Indiana"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Indianapolis"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Iowa"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Des Moines"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Kansas"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Topeka"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Kentucky"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Frankfort"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Louisiana"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Baton Rouge"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Maine"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Augusta"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Maryland"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Annapolis"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Massachusetts"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Boston"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Michigan"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Lansing"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Minnesota"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Saint Paul"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Mississippi"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Jackson"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Missouri"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Jefferson City"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Montana"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Helena"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Nebraska"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Lincoln"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Nevada"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Carson City"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "New Hampshire"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Concord"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "New Jersey"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Trenton"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "New Mexico"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Santa Fe"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "New York"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Albany"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "North Carolina"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Raleigh"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "North Dakota"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Bismarck"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Ohio"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Columbus"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Oklahoma"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Oklahoma City"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Oregon"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Salem"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Pennsylvania"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Harrisburg"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Rhode Island"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Providence"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "South Carolina"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Columbia"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "South Dakota"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Pierre"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Tennessee"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Nashville"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Texas"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Austin"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Utah"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Salt Lake City"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Vermont"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Montpelier"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Virginia"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Richmond"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Washington"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Olympia"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "West Virginia"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Charleston"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Wisconsin"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Madison"\cf4 \}
+\f3\b \cf6 ,\
+            
+\f1\b0 \cf4 \{\cf7 "Wyoming"
+\f3\b \cf6 , 
+\f1\b0 \cf7 "Cheyenne"\cf4 \}\
+    \}
+\f3\b \cf6 ;\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f1\b0 \cf4 \}\
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf4 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf8 // StatesAndCapitals.java file ends here\
+\
+// Part 1: 
+\f4 \cf8 SortingArrays
+\f1 \cf8 .java file starts here\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf6 import \cf4 java.util.Scanner
+\f3\b \cf6 ;\
+\
+
+\f1\b0 \cf6 public class \cf4 SortingArrays \{\
+    \cf6 public static void \cf9 main\cf4 (String[] args) \{\
+        \cf5 // two-dimensional string array with states and their capitals in alphabetical order by state\
+        \cf4 String[][] stateAndCapital = StatesAndCapitals.
+\f2\i \cf3 STATE_AND_CAPITAL
+\f3\i0\b \cf6 ;\
+\
+        
+\f1\b0 \cf5 // Display current contents of the array\
+        \cf4 System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "The states and their capitals are:"\cf4 )
+\f3\b \cf6 ;\
+        
+\f2\i\b0 \cf4 displayStateAndCapital
+\f1\i0 \cf4 (stateAndCapital)
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf5 // Use a bubble sort to sort the array's content by capital\
+        
+\f2\i \cf4 bubbleSortByCapital
+\f1\i0 \cf4 (stateAndCapital)
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf5 // Quiz the user\
+        \cf6 int \cf4 correctCount = 
+\f2\i \cf4 quizUser
+\f1\i0 \cf4 (stateAndCapital)
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf5 // Display total correct count\
+        \cf4 System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "\cf6 \\n\cf7 Total correct count: " \cf4 + correctCount)
+\f3\b \cf6 ;\
+    
+\f1\b0 \cf4 \}\
+\
+    \cf5 // Method to display state and capital\
+    \cf6 public static void \cf9 displayStateAndCapital\cf4 (String[][] array) \{\
+        \cf6 for \cf4 (String[] stateCapitalPair : array) \{\
+            System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(stateCapitalPair[\cf10 0\cf4 ] + \cf7 " - " \cf4 + stateCapitalPair[\cf10 1\cf4 ])
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 \}\
+    \}\
+\
+    \cf5 // Method to quiz the user\
+    \cf6 public static int \cf9 quizUser\cf4 (String[][] stateAndCapital) \{\
+        Scanner input = \cf6 new \cf4 Scanner(System.
+\f2\i \cf3 in
+\f1\i0 \cf4 )
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf6 int \cf4 correctCount = \cf10 0
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf6 for \cf4 (String[] strings : stateAndCapital) \{\
+            System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .print(\cf7 "What is the capital of " \cf4 + strings[\cf10 0\cf4 ] + \cf7 "? (type 'exit' to quit)\cf6 \\n\cf7 "\cf4 )
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 String userAnswer = input.nextLine()
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf5 // Check if the user wants to exit\
+            \cf6 if \cf4 (userAnswer.equalsIgnoreCase(\cf7 "exit"\cf4 )) \{\
+                System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Exiting the program..."\cf4 )
+\f3\b \cf6 ;\
+                
+\f1\b0 \cf6 return \cf4 correctCount
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 \}\
+\
+            \cf6 if \cf4 (userAnswer.equalsIgnoreCase(strings[\cf10 1\cf4 ])) \{\
+                System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Your answer is correct!"\cf4 )
+\f3\b \cf6 ;\
+                
+\f1\b0 \cf4 correctCount++
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 \} \cf6 else \cf4 \{\
+                System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Wrong - The correct answer is " \cf4 + strings[\cf10 1\cf4 ])
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 \}\
+        \}\
+\
+        \cf6 return \cf4 correctCount
+\f3\b \cf6 ;\
+    
+\f1\b0 \cf4 \}\
+\
+    \cf5 // Method to sort the array by capital using bubble sort\
+    \cf6 public static void \cf9 bubbleSortByCapital\cf4 (String[][] array) \{\
+        \cf6 int \cf4 n = array.\cf3 length
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf6 for \cf4 (\cf6 int \cf4 i = \cf10 0
+\f3\b \cf6 ; 
+\f1\b0 \cf4 i < n - \cf10 1
+\f3\b \cf6 ; 
+\f1\b0 \cf4 i++) \{\
+            \cf6 for \cf4 (\cf6 int \cf4 j = \cf10 0
+\f3\b \cf6 ; 
+\f1\b0 \cf4 j < n - i - \cf10 1
+\f3\b \cf6 ; 
+\f1\b0 \cf4 j++) \{\
+                \cf5 // array[j][1] represents the capital of the j-th state.\
+                // array[j + 1][1] represents the capital of the next (j + 1)-th state.\
+                \cf4 String curr = array[j][\cf10 1\cf4 ]
+\f3\b \cf6 , 
+\f1\b0 \cf4 next = array[j + \cf10 1\cf4 ][\cf10 1\cf4 ]
+\f3\b \cf6 ;\
+                
+\f1\b0 \cf5 // Compare capitals ignoring case\
+                \cf6 if \cf4 (curr.compareToIgnoreCase(next) > \cf10 0\cf4 ) \{\
+                    \cf5 // Swap elements if they are in the wrong order\
+                    \cf4 String[] temp = array[j]
+\f3\b \cf6 ;\
+                    
+\f1\b0 \cf4 array[j] = array[j + \cf10 1\cf4 ]
+\f3\b \cf6 ;\
+                    
+\f1\b0 \cf4 array[j + \cf10 1\cf4 ] = temp
+\f3\b \cf6 ;\
+                
+\f1\b0 \cf4 \}\
+            \}\
+        \}\
+    \}\
+\}\cf8 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf8 \
+// Part 1: 
+\f4 \cf8 SortingArrays
+\f1 \cf8 .java file ends here\
+\
+// Part 2: 
+\f4 \cf4 SortingAndSearchingHashMap
+\f1 \cf8 .java file starts here\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf6 import \cf4 java.util.HashMap
+\f3\b \cf6 ;\
+
+\f1\b0 \cf6 import \cf4 java.util.Map
+\f3\b \cf6 ;\
+
+\f1\b0 \cf6 import \cf4 java.util.Scanner
+\f3\b \cf6 ;\
+
+\f1\b0 \cf6 import \cf4 java.util.TreeMap
+\f3\b \cf6 ;\
+\
+
+\f1\b0 \cf6 public class \cf4 SortingAndSearchingHashMap \{\
+    \cf6 public static void \cf9 main\cf4 (String[] args) \{\
+        \cf5 // Create a HashMap to store state-capital pairs\
+        \cf4 Map<String
+\f3\b \cf6 , 
+\f1\b0 \cf4 String> stateCapitalMap = \cf6 new \cf4 HashMap<>()
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf5 // two-dimensional string array with states and their capitals in alphabetical order by state\
+        \cf4 String[][] stateAndCapital = StatesAndCapitals.
+\f2\i \cf3 STATE_AND_CAPITAL
+\f3\i0\b \cf6 ;\
+\
+        
+\f1\b0 \cf5 // Loop to convert the 2-D array into a HashMap\
+        \cf6 for \cf4 (String[] strings : stateAndCapital) \{\
+            stateCapitalMap.put(strings[\cf10 0\cf4 ]
+\f3\b \cf6 , 
+\f1\b0 \cf4 strings[\cf10 1\cf4 ])
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 \}\
+\
+        \cf5 // Display the content of the Map\
+        \cf4 System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Capital and State of HashMap:\cf6 \\n\cf7 "\cf4 )
+\f3\b \cf6 ;\
+        
+\f2\i\b0 \cf4 displayMap
+\f1\i0 \cf4 (stateCapitalMap)
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf5 // You can utilize the TreeMap class provided by Java, which internally implements a binary search tree\
+        // No need to implement your own binary search tree.\
+        // Sort the map using TreeMap (sorted by keys in natural order) while using a binary search tree (built in to TreeMap) for storage\
+        \cf4 Map<String
+\f3\b \cf6 , 
+\f1\b0 \cf4 String> sortedMap = \cf6 new \cf4 TreeMap<>(stateCapitalMap)
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf4 System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Capital and State of TreeMap:\cf6 \\n\cf7 "\cf4 )
+\f3\b \cf6 ;\
+        
+\f2\i\b0 \cf4 displayMap
+\f1\i0 \cf4 (sortedMap)
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf5 // Prompt the user\
+        
+\f2\i \cf4 promptUser
+\f1\i0 \cf4 (sortedMap)
+\f3\b \cf6 ;\
+    
+\f1\b0 \cf4 \}\
+\
+    \cf5 // Method to display the content of a Map\
+    \cf6 public static void \cf9 displayMap\cf4 (Map<String
+\f3\b \cf6 , 
+\f1\b0 \cf4 String> map) \{\
+        \cf6 for \cf4 (Map.Entry<String
+\f3\b \cf6 , 
+\f1\b0 \cf4 String> entry : map.entrySet()) \{\
+            System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(entry.getKey() + \cf7 " - " \cf4 + entry.getValue())
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 \}\
+    \}\
+\
+    \cf5 // Method to quiz the user\
+    \cf6 public static void \cf9 promptUser\cf4 (Map<String
+\f3\b \cf6 , 
+\f1\b0 \cf4 String> stateAndCapitalMap) \{\
+        \cf5 // Prompt the user to enter a state and display its capital\
+        \cf4 Scanner scanner = \cf6 new \cf4 Scanner(System.
+\f2\i \cf3 in
+\f1\i0 \cf4 )
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "\cf6 \\n\cf7 Enter a state to display its capital (do not abbreviate)."\cf4 )
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Type 'exit' to quit: "\cf4 )
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 String state = scanner.nextLine().trim()
+\f3\b \cf6 ;\
+\
+        
+\f1\b0 \cf6 while \cf4 (!state.equalsIgnoreCase(\cf7 "exit"\cf4 )) \{\
+            \cf5 // Capitalize the first letter of the user input\
+            \cf4 state = state.substring(\cf10 0
+\f3\b \cf6 , 
+\f1\b0 \cf10 1\cf4 ).toUpperCase() + state.substring(\cf10 1\cf4 ).toLowerCase()
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 String capital = stateAndCapitalMap.get(state)
+\f3\b \cf6 ;\
+\
+            
+\f1\b0 \cf6 if \cf4 (capital != \cf6 null\cf4 ) \{\
+                System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "The capital of " \cf4 + state + \cf7 " is " \cf4 + capital + \cf7 "."\cf4 )
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 \} \cf6 else \cf4 \{\
+                System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "State not found."\cf4 )
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 \}\
+\
+            System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Enter a state to display its capital (type 'exit' to quit): "\cf4 )
+\f3\b \cf6 ;\
+            
+\f1\b0 \cf4 state = scanner.nextLine().trim()
+\f3\b \cf6 ;\
+        
+\f1\b0 \cf4 \}\
+\
+        System.
+\f2\i \cf3 out
+\f1\i0 \cf4 .println(\cf7 "Exiting the program..."\cf4 )
+\f3\b \cf6 ;\
+    
+\f1\b0 \cf4 \}\
+\}\cf8 \
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural\partightenfactor0
+\cf8 \
+// Part 2: 
+\f4 \cf4 SortingAndSearchingHashMap
+\f1 \cf8 .java file ends here}

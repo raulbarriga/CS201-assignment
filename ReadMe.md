@@ -16,20 +16,20 @@ I instantiate the 2-D array from its separate file in:
 
 `String[][] stateAndCapital = StatesAndCapitals.STATE_AND_CAPITAL;`
 
-The `displayStateAndCapital`method uses an enhanced for loop to print the 2-D array.
+The `displayStateAndCapital` method uses an enhanced for loop to print the 2-D array.
 
 The `bubbleSortByCapital` method uses a bubble sort to sort the array's content by capital.
 
-### How The `bubbleSortByCapital`Method Works
+### How The `bubbleSortByCapital` Method Works
 I pass it the `stateAndCapital` 2-D array. Inside this method, I use a double for-loop to loop through the 2-D array.
 
-Inside the inner loop, it compares the capitals of adjacent state-capital pairs. It extracts the capitals of the current pair `array[j][1]` and the next pair `array[j + 1][1]` and stores them in curr and next variables, respectively. If the capital of the current pair comes after the capital of the next pair alphabetically (ignoring case), it means they are in the wrong order.
+Inside the inner loop, it compares the capitals of adjacent state-capital pairs. It extracts the capitals of the current pair `array[j][1]` and the next pair `array[j + 1][1]` and stores them in `curr` and `next` variables, respectively. If the capital of the current pair comes after the capital of the next pair alphabetically (ignoring case), it means they are in the wrong order.
 
 If the capitals are in the wrong order, it swaps the entire state-capital pairs: It creates a temporary array `temp` to hold the current state-capital pair. It assigns the next state-capital pair to the current position `array[j]`.  It assigns the temporary array `temp` to the next position `array[j + 1]`. The inner loop continues until all pairs are compared and sorted.
 
 After the inner loop completes, the outer loop increments `i`, and the process repeats until the array is completely sorted.
 
-### How The `quizUser`Method Works
+### How The `quizUser` Method Works
 It takes a 2-D array `stateAndCapital` as input.
 
 It initializes a `Scanner` object `input` to read user input, and a variable `correctCount` to keep track of the number of correct answers.
@@ -88,7 +88,7 @@ You can utilize the TreeMap class provided by Java, which internally implements 
 
 The `promptUser(sortedMap);` method receives the `TreeMap` I just created.
 
-### How The `promptUser`Method Works
+### How The `promptUser` Method Works
 It takes a `Map<String, String>` called `stateAndCapitalMap` as input.
 
 It creates a `Scanner` object called `scanner` to read user input. The input can either be capitalized or not (the map of states and capitals are all capitalized).
